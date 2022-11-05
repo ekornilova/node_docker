@@ -1,0 +1,102 @@
+Задание 1 - Docker CLI
+Загрузите образ busybox последней версии
+Запустите новый контейнер busybox с командой ping сайта netology.ru, и количеством пингов 7, поименуйте контейнер pinger
+docker run --name pinger busybox ping -c 7 netology.ru 
+
+Unable to find image 'busybox:latest' locally
+latest: Pulling from library/busybox
+22b70bddd3ac: Pull complete 
+Digest: sha256:6bdd92bf5240be1b5f3bf71324f5e371fe59f0e153b27fa1f1620f78ba16963c
+Status: Downloaded newer image for busybox:latest
+PING netology.ru (104.22.41.171): 56 data bytes
+64 bytes from 104.22.41.171: seq=0 ttl=37 time=96.273 ms
+64 bytes from 104.22.41.171: seq=1 ttl=37 time=66.491 ms
+64 bytes from 104.22.41.171: seq=2 ttl=37 time=112.732 ms
+64 bytes from 104.22.41.171: seq=3 ttl=37 time=74.727 ms
+64 bytes from 104.22.41.171: seq=4 ttl=37 time=76.456 ms
+64 bytes from 104.22.41.171: seq=5 ttl=37 time=195.661 ms
+64 bytes from 104.22.41.171: seq=6 ttl=37 time=74.926 ms
+
+--- netology.ru ping statistics ---
+7 packets transmitted, 7 packets received, 0% packet loss
+round-trip min/avg/max = 66.491/99.609/195.661 ms
+
+Выведите на список всех контейнеров - запущенных и остановленных
+docker ps -a
+
+CONTAINER ID   IMAGE     COMMAND                  CREATED          STATUS                      PORTS     NAMES
+e50450774c33   busybox   "ping -c 7 netology.…"   27 seconds ago   Exited (0) 20 seconds ago             pinger
+
+Выведите на экран логи контейнера с именем pinger
+docker logs pinger
+
+PING netology.ru (104.22.41.171): 56 data bytes
+64 bytes from 104.22.41.171: seq=0 ttl=37 time=96.273 ms
+64 bytes from 104.22.41.171: seq=1 ttl=37 time=66.491 ms
+64 bytes from 104.22.41.171: seq=2 ttl=37 time=112.732 ms
+64 bytes from 104.22.41.171: seq=3 ttl=37 time=74.727 ms
+64 bytes from 104.22.41.171: seq=4 ttl=37 time=76.456 ms
+64 bytes from 104.22.41.171: seq=5 ttl=37 time=195.661 ms
+64 bytes from 104.22.41.171: seq=6 ttl=37 time=74.926 ms
+
+--- netology.ru ping statistics ---
+7 packets transmitted, 7 packets received, 0% packet loss
+round-trip min/avg/max = 66.491/99.609/195.661 ms
+
+Запустите второй раз контейнера с именем pinger
+docker start pinger
+
+pinger
+
+Выведите на список всех контейнеров - запущенных и остановленных
+docker ps -a
+
+CONTAINER ID   IMAGE     COMMAND                  CREATED              STATUS                     PORTS     NAMES
+e50450774c33   busybox   "ping -c 7 netology.…"   About a minute ago   Exited (0) 6 seconds ago             pinger
+
+Выведите на экран логи контейнера с именем pinger
+docker logs pinger
+
+Определите по логам общее количество запусков команды ping и какое общее количество отправленых запросов
+kate@syss-MacBook-Pro docker % docker logs pinger        
+
+PING netology.ru (104.22.41.171): 56 data bytes
+64 bytes from 104.22.41.171: seq=0 ttl=37 time=96.273 ms
+64 bytes from 104.22.41.171: seq=1 ttl=37 time=66.491 ms
+64 bytes from 104.22.41.171: seq=2 ttl=37 time=112.732 ms
+64 bytes from 104.22.41.171: seq=3 ttl=37 time=74.727 ms
+64 bytes from 104.22.41.171: seq=4 ttl=37 time=76.456 ms
+64 bytes from 104.22.41.171: seq=5 ttl=37 time=195.661 ms
+64 bytes from 104.22.41.171: seq=6 ttl=37 time=74.926 ms
+
+--- netology.ru ping statistics ---
+7 packets transmitted, 7 packets received, 0% packet loss
+round-trip min/avg/max = 66.491/99.609/195.661 ms
+PING netology.ru (104.22.41.171): 56 data bytes
+64 bytes from 104.22.41.171: seq=0 ttl=37 time=136.722 ms
+64 bytes from 104.22.41.171: seq=1 ttl=37 time=77.828 ms
+64 bytes from 104.22.41.171: seq=2 ttl=37 time=64.263 ms
+64 bytes from 104.22.41.171: seq=3 ttl=37 time=87.595 ms
+64 bytes from 104.22.41.171: seq=4 ttl=37 time=97.288 ms
+64 bytes from 104.22.41.171: seq=5 ttl=37 time=73.154 ms
+64 bytes from 104.22.41.171: seq=6 ttl=37 time=71.141 ms
+
+--- netology.ru ping statistics ---
+7 packets transmitted, 7 packets received, 0% packet loss
+round-trip min/avg/max = 64.263/86.855/136.722 ms
+
+
+Удалите контейнер с именем pinger
+docker rm pinger
+
+pinger
+
+Удалите образ busybox
+docker rmi busybox
+
+Untagged: busybox:latest
+Untagged: busybox@sha256:6bdd92bf5240be1b5f3bf71324f5e371fe59f0e153b27fa1f1620f78ba16963c
+Deleted: sha256:bc01a3326866eedd68525a4d2d91d2cf86f9893db054601d6be524d5c9d03981
+Deleted: sha256:0438ade5aeea533b00cd75095bec75fbc2b307bace4c89bb39b75d428637bcd8
+
+
